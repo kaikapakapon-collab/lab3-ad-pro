@@ -119,19 +119,19 @@ public class MainViewController {
 
                             // Exercise 3.5 (2): จัดฟอร์แมตให้เป็น "about (4, 2, 1)"
                             // วนลูปอ่านค่าข้อมูลทีละคำ
-                            for (Map.Entry<String, List<FileFreq>> entry : uniqueSets.entrySet()) {
-                                String key = entry.getKey();
-                                List<FileFreq> freqs = entry.getValue();
+                            for (Map.Entry<String, List<FileFreq>> entry : uniqueSets.entrySet()) { // look like สมุดจดอล้วเปิดดูทีละหน้า
+                                String key = entry.getKey(); // ให้ key เก็บคำศัพ
+                                List<FileFreq> freqs = entry.getValue(); // freqs เก็บความถี่
                                 // ดึงข้อมูลเฉพาะตัวเลขมาแปลงเป็น String แล้วเอาลูกน้ำมาคั้น
                                 String freqsStr = freqs.stream()
-                                        .map(f -> String.valueOf(f.getFreq()))
-                                        .collect(Collectors.joining(", "));
+                                        .map(f -> String.valueOf(f.getFreq())) // แปลงตัวเลข f เแ็น string
+                                        .collect(Collectors.joining(", ")); // จับตัวเลขมาต่อกัย
                                 // เอาศัพมาต่อด้วยเว้นวรรคแล้วก็เลข
                                 String displayText = key + " (" + freqsStr + ")";
 
                                 // เก็บ Mapping ไว้ตอนคลิกเปิดไฟล์ แล้วเพิ่มขึ้นหน้าจอ
-                                displayToOriginalKey.put(displayText, key);
-                                listView.getItems().add(displayText);
+                                displayToOriginalKey.put(displayText, key); // ทำให้โปรแกรมรับรรู้ original key
+                                listView.getItems().add(displayText); // โยนให้คน run เห็น
                             }
                         });
                     } catch (Exception e) {
