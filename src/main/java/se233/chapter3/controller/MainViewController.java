@@ -118,14 +118,18 @@ public class MainViewController {
                             displayToOriginalKey.clear();
 
                             // Exercise 3.5 (2): จัดฟอร์แมตให้เป็น "about (4, 2, 1)"
+                            // วนลูปอ่านค่าข้อมูลทีละคำ
                             for (Map.Entry<String, List<FileFreq>> entry : uniqueSets.entrySet()) {
                                 String key = entry.getKey();
                                 List<FileFreq> freqs = entry.getValue();
+                                // ดึงข้อมูลเฉพาะตัวเลขมาแปลงเป็น String แล้วเอาลูกน้ำมาคั้น
                                 String freqsStr = freqs.stream()
                                         .map(f -> String.valueOf(f.getFreq()))
                                         .collect(Collectors.joining(", "));
+                                // เอาศัพมาต่อด้วยเว้นวรรคแล้วก็เลข
                                 String displayText = key + " (" + freqsStr + ")";
 
+                                // เก็บ Mapping ไว้ตอนคลิกเปิดไฟล์ แล้วเพิ่มขึ้นหน้าจอ
                                 displayToOriginalKey.put(displayText, key);
                                 listView.getItems().add(displayText);
                             }
@@ -173,9 +177,10 @@ public class MainViewController {
             popup.getContent().add(popupListView);
 
             // Exercise 3.5 (5): ปิด popup เมื่อกดปุ่ม ESC
+            // สั่ง pop ให้ดูว่ามีใครกดคีย์บอร์ดไหม
             popupListView.setOnKeyPressed(keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    popup.hide();
+                if (keyEvent.getCode() == KeyCode.ESCAPE) { // ถ้ามีคนกด esc
+                    popup.hide(); // ให้ซ่อนมันไป
                 }
             });
 
@@ -186,7 +191,7 @@ public class MainViewController {
     // Exercise 3.5 (4): ฟังก์ชันสำหรับปิดโปรแกรมจาก MenuBar
     @FXML
     public void handleClose() {
-        Platform.exit();
-        System.exit(0);
+        Platform.exit(); // สั่งปิดหน้าต่าง javaFX
+        System.exit(0); // ปิดการทำงานของโปรแกรมและคืน mem ให้เครื่อง
     }
 }
